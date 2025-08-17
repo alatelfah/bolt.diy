@@ -67,8 +67,8 @@ export const ChatBox: React.FC<ChatBoxProps> = (props) => {
   return (
     <div
       className={classNames(
-        'relative bg-bolt-elements-background-depth-2 backdrop-blur p-3 rounded-lg border border-bolt-elements-borderColor relative w-full max-w-chat mx-auto z-prompt',
-
+        'relative bg-gradient-to-br from-bolt-elements-bg-depth-2 via-bolt-elements-bg-depth-3 to-bolt-elements-bg-depth-2 backdrop-blur-xl p-6 rounded-2xl border border-bolt-elements-borderColor/50 relative w-full max-w-chat mx-auto z-prompt shadow-bolt-elements-shadow-large',
+        'animate-fade-in-up',
         /*
          * {
          *   'sticky bottom-2': chatStarted,
@@ -76,6 +76,10 @@ export const ChatBox: React.FC<ChatBoxProps> = (props) => {
          */
       )}
     >
+      {/* Enhanced Background Effects */}
+      <div className="absolute inset-0 bg-gradient-to-br from-accent-500/5 via-transparent to-accent-600/5 rounded-2xl" />
+      <div className="absolute inset-0 bg-gradient-to-t from-white/20 dark:from-black/20 to-transparent rounded-2xl" />
+      
       <svg className={classNames(styles.PromptEffectContainer)}>
         <defs>
           <linearGradient
@@ -236,7 +240,7 @@ export const ChatBox: React.FC<ChatBoxProps> = (props) => {
             minHeight: props.TEXTAREA_MIN_HEIGHT,
             maxHeight: props.TEXTAREA_MAX_HEIGHT,
           }}
-          placeholder={props.chatMode === 'build' ? 'How can Bolt help you today?' : 'What would you like to discuss?'}
+          placeholder={props.chatMode === 'build' ? 'How can Hero Builder help you today?' : 'What would you like to discuss?'}
           translate="no"
         />
         <ClientOnly>

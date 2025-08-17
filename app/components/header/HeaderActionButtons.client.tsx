@@ -20,9 +20,30 @@ export function HeaderActionButtons({ chatStarted }: HeaderActionButtonsProps) {
   const shouldShowButtons = !isStreaming && activePreview;
 
   return (
-    <div className="flex items-center">
-      {chatStarted && shouldShowButtons && <ExportChatButton exportChat={exportChat} />}
-      {shouldShowButtons && <DeployButton />}
+    <div className="flex items-center gap-3">
+      {chatStarted && shouldShowButtons && (
+        <div className="animate-fade-in-up">
+          <ExportChatButton exportChat={exportChat} />
+        </div>
+      )}
+      {shouldShowButtons && (
+        <div className="animate-fade-in-up stagger-1">
+          <DeployButton />
+        </div>
+      )}
+      
+      {/* Enhanced Visual Separator */}
+      {shouldShowButtons && (
+        <div className="w-px h-6 bg-gradient-to-b from-transparent via-bolt-elements-borderColor to-transparent opacity-50" />
+      )}
+      
+      {/* Status Indicator */}
+      {isStreaming && (
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20">
+          <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
+          <span className="text-sm text-accent font-medium">Processing...</span>
+        </div>
+      )}
     </div>
   );
 }

@@ -2,7 +2,16 @@ blank_issues_enabled: false
 contact_links:
   - name: Bolt.new related issues
     url: https://github.com/stackblitz/bolt.new/issues/new/choose
-    about: Report issues related to Bolt.new (not Bolt.diy)
+    about: Report issues related to Bolt.new (not Hero Builder)
+    title: "[Bolt.new] "
+    labels: ["bolt.new"]
+    body: |
+      This issue tracker is for Bolt.new issues only. Please file Hero Builder issues in the Hero Builder repository.
+  
   - name: Chat
     url: https://thinktank.ottomator.ai
-    about: Ask questions and discuss with other Bolt.diy users.
+    about: Ask questions and discuss with other Hero Builder users.
+    title: "[Hero Builder] "
+    labels: ["hero-builder", "question"]
+    body: |
+      This is a general question or discussion about Hero Builder.

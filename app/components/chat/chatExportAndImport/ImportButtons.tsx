@@ -5,7 +5,7 @@ import { Button } from '~/components/ui/Button';
 import { classNames } from '~/utils/classNames';
 
 type ChatData = {
-  messages?: Message[]; // Standard Bolt format
+  messages?: Message[]; // Standard Hero Builder format
   description?: string; // Optional description
 };
 
@@ -57,8 +57,17 @@ export function ImportButtons(importChat: ((description: string, messages: Messa
           }
         }}
       />
-      <div className="flex flex-col items-center gap-4 max-w-2xl text-center">
-        <div className="flex gap-2">
+      <div className="flex flex-col items-center gap-6 max-w-2xl text-center">
+        <div className="text-center">
+          <h3 className="text-lg font-semibold text-bolt-elements-textPrimary mb-2">
+            Import your work
+          </h3>
+          <p className="text-sm text-bolt-elements-textSecondary">
+            Continue from where you left off
+          </p>
+        </div>
+        
+        <div className="flex gap-4">
           <Button
             onClick={() => {
               const input = document.getElementById('chat-import');
@@ -67,26 +76,28 @@ export function ImportButtons(importChat: ((description: string, messages: Messa
             variant="default"
             size="lg"
             className={classNames(
-              'gap-2 bg-bolt-elements-background-depth-1',
-              'text-bolt-elements-textPrimary',
-              'hover:bg-bolt-elements-background-depth-2',
-              'border border-bolt-elements-borderColor',
-              'h-10 px-4 py-2 min-w-[120px] justify-center',
-              'transition-all duration-200 ease-in-out',
+              'gap-3 bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700',
+              'text-white font-medium',
+              'h-12 px-6 py-3 min-w-[140px] justify-center',
+              'transition-all duration-300 ease-in-out hover:scale-105',
+              'shadow-bolt-elements-shadow-soft hover:shadow-bolt-elements-shadow-medium',
+              'rounded-xl',
             )}
           >
-            <span className="i-ph:upload-simple w-4 h-4" />
+            <span className="i-ph:upload-simple w-5 h-5" />
             Import Chat
           </Button>
           <ImportFolderButton
             importChat={importChat}
             className={classNames(
-              'gap-2 bg-bolt-elements-background-depth-1',
-              'text-bolt-elements-textPrimary',
-              'hover:bg-bolt-elements-background-depth-2',
-              'border border-[rgba(0,0,0,0.08)] dark:border-[rgba(255,255,255,0.08)]',
-              'h-10 px-4 py-2 min-w-[120px] justify-center',
-              'transition-all duration-200 ease-in-out rounded-lg',
+              'gap-3 bg-gradient-to-r from-bolt-elements-bg-depth-2 to-bolt-elements-bg-depth-3',
+              'text-bolt-elements-textPrimary font-medium',
+              'hover:from-accent-50 dark:hover:from-accent-900/20 hover:to-accent-100 dark:hover:to-accent-800/20',
+              'border border-bolt-elements-borderColor/50 hover:border-accent-200/50 dark:hover:border-accent-700/50',
+              'h-12 px-6 py-3 min-w-[140px] justify-center',
+              'transition-all duration-300 ease-in-out hover:scale-105',
+              'shadow-bolt-elements-shadow-soft hover:shadow-bolt-elements-shadow-medium',
+              'rounded-xl',
             )}
           />
         </div>

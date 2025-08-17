@@ -1,7 +1,7 @@
 import ignore from 'ignore';
 import { useGit } from '~/lib/hooks/useGit';
 import type { Message } from 'ai';
-import { detectProjectCommands, createCommandsMessage, escapeBoltTags } from '~/utils/projectCommands';
+import { detectProjectCommands, createCommandsMessage, escapeHeroTags } from '~/utils/projectCommands';
 import { generateId } from '~/utils/fileUtils';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
@@ -100,53 +100,35 @@ export default function GitCloneButton({ importChat, className }: GitCloneButton
             }
 
             totalSize += fileSize;
-            fileContents.push({
-              path: filePath,
-              content: textContent,
-            });
-          } catch (e: any) {
-            skippedFiles.push(`${filePath} (error: ${e.message})`);
+            fileContents.push({ filePath, content: textContent });
+          } catch (error) {
+            console.error('Error processing file:', filePath, error);
+            skippedFiles.push(`${filePath} (error processing)`);
           }
         }
 
-        const commands = await detectProjectCommands(fileContents);
-        const commandsMessage = createCommandsMessage(commands);
-
-        const filesMessage: Message = {
-          role: 'assistant',
-          content: `Cloning the repo ${repoUrl} into ${workdir}
-${
-  skippedFiles.length > 0
-    ? `\nSkipped files (${skippedFiles.length}):
-${skippedFiles.map((f) => `- ${f}`).join('\n')}`
-    : ''
-}
-
-<boltArtifact id="imported-files" title="Git Cloned Files" type="bundled">
-${fileContents
-  .map(
-    (file) =>
-      `<boltAction type="file" filePath="${file.path}">
-${escapeBoltTags(file.content)}
-</boltAction>`,
-  )
-  .join('\n')}
-</boltArtifact>`,
-          id: generateId(),
-          createdAt: new Date(),
-        };
-
-        const messages = [filesMessage];
-
-        if (commandsMessage) {
-          messages.push(commandsMessage);
+        if (fileContents.length === 0) {
+          toast.error('No valid files found in repository');
+          return;
         }
 
-        await importChat(`Git Project:${repoUrl.split('/').slice(-1)[0]}`, messages);
+        const commandsMessage = createCommandsMessage(fileContents, workdir);
+        const description = `Cloned repository: ${repoUrl}`;
+
+        await importChat(description, [commandsMessage]);
+
+        if (skippedFiles.length > 0) {
+          toast.warning(
+            `Imported ${fileContents.length} files. Skipped ${skippedFiles.length} files due to size or type restrictions.`,
+            { autoClose: 5000 }
+          );
+        } else {
+          toast.success(`Successfully imported ${fileContents.length} files from repository`);
+        }
       }
     } catch (error) {
-      console.error('Error during import:', error);
-      toast.error('Failed to import repository');
+      console.error('Error cloning repository:', error);
+      toast.error('Failed to clone repository. Please check the URL and try again.');
     } finally {
       setLoading(false);
     }
@@ -156,27 +138,31 @@ ${escapeBoltTags(file.content)}
     <>
       <Button
         onClick={() => setIsDialogOpen(true)}
-        title="Clone a Git Repo"
         variant="default"
         size="lg"
         className={classNames(
-          'gap-2 bg-bolt-elements-background-depth-1',
-          'text-bolt-elements-textPrimary',
-          'hover:bg-bolt-elements-background-depth-2',
-          'border border-bolt-elements-borderColor',
-          'h-10 px-4 py-2 min-w-[120px] justify-center',
-          'transition-all duration-200 ease-in-out',
+          'gap-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700',
+          'text-white font-medium',
+          'h-12 px-6 py-3 min-w-[140px] justify-center',
+          'transition-all duration-300 ease-in-out hover:scale-105',
+          'shadow-bolt-elements-shadow-soft hover:shadow-bolt-elements-shadow-medium',
+          'rounded-xl',
           className,
         )}
-        disabled={!ready || loading}
       >
-        <span className="i-ph:git-branch w-4 h-4" />
-        Clone a Git Repo
+        <span className="i-ph:git-branch w-5 h-5" />
+        Clone Repo
       </Button>
 
-      <RepositorySelectionDialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)} onSelect={handleClone} />
+      {loading && <LoadingOverlay />}
 
-      {loading && <LoadingOverlay message="Please wait while we clone the repository..." />}
+      <RepositorySelectionDialog
+        open={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        onSelect={handleClone}
+        title="Clone Repository"
+        description="Enter a GitHub repository URL to clone and import into your chat"
+      />
     </>
   );
 }

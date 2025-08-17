@@ -1,5 +1,5 @@
-import type { ActionType, BoltAction, BoltActionData, FileAction, ShellAction, SupabaseAction } from '~/types/actions';
-import type { BoltArtifactData } from '~/types/artifact';
+import type { ActionType, HeroAction, HeroActionData, FileAction, ShellAction, SupabaseAction } from '~/types/actions';
+import type { HeroArtifactData } from '~/types/artifact';
 import { createScopedLogger } from '~/utils/logger';
 import { unreachable } from '~/utils/unreachable';
 
@@ -12,7 +12,7 @@ const BOLT_QUICK_ACTIONS_CLOSE = '</bolt-quick-actions>';
 
 const logger = createScopedLogger('MessageParser');
 
-export interface ArtifactCallbackData extends BoltArtifactData {
+export interface ArtifactCallbackData extends HeroArtifactData {
   messageId: string;
 }
 
@@ -20,7 +20,7 @@ export interface ActionCallbackData {
   artifactId: string;
   messageId: string;
   actionId: string;
-  action: BoltAction;
+  action: HeroAction;
 }
 
 export type ArtifactCallback = (data: ArtifactCallbackData) => void;
@@ -49,8 +49,8 @@ interface MessageState {
   position: number;
   insideArtifact: boolean;
   insideAction: boolean;
-  currentArtifact?: BoltArtifactData;
-  currentAction: BoltActionData;
+  currentArtifact?: HeroArtifactData;
+  currentAction: HeroActionData;
   actionId: number;
 }
 
@@ -168,7 +168,7 @@ export class StreamingMessageParser {
                */
               actionId: String(state.actionId - 1),
 
-              action: currentAction as BoltAction,
+              action: currentAction as HeroAction,
             });
 
             state.insideAction = false;
@@ -214,7 +214,7 @@ export class StreamingMessageParser {
                 artifactId: currentArtifact.id,
                 messageId,
                 actionId: String(state.actionId++),
-                action: state.currentAction as BoltAction,
+                action: state.currentAction as HeroAction,
               });
 
               i = actionEndIndex + 1;
@@ -271,7 +271,7 @@ export class StreamingMessageParser {
                 id: artifactId,
                 title: artifactTitle,
                 type,
-              } satisfies BoltArtifactData;
+              } satisfies HeroArtifactData;
 
               state.currentArtifact = currentArtifact;
 

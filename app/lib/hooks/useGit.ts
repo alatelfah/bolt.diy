@@ -58,7 +58,8 @@ export function useGit() {
       const headers: {
         [x: string]: string;
       } = {
-        'User-Agent': 'bolt.diy',
+        'User-Agent': 'hero-builder',
+        'Accept': 'application/vnd.github.v3+json',
       };
 
       const auth = lookupSavedPassword(url);

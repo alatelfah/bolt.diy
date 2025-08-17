@@ -160,10 +160,10 @@ export async function getTemplates(templateName: string, title?: string) {
      */
   }
 
-  // exclude    .bolt
+  // exclude    .hero
   filteredFiles = filteredFiles.filter((x) => x.path.startsWith('.bolt') == false);
 
-  // check for ignore file in .bolt folder
+  // check for ignore file in .hero folder
   const templateIgnoreFile = files.find((x) => x.path.startsWith('.bolt') && x.name == 'ignore');
 
   const filesToImport = {
@@ -184,20 +184,20 @@ export async function getTemplates(templateName: string, title?: string) {
   }
 
   const assistantMessage = `
-Bolt is initializing your project with the required files using the ${template.name} template.
-<boltArtifact id="imported-files" title="${title || 'Create initial files'}" type="bundled">
+Hero Builder is initializing your project with the required files using the ${template.name} template.
+<heroArtifact id="imported-files" title="${title || 'Create initial files'}" type="bundled">
 ${filesToImport.files
   .map(
     (file) =>
-      `<boltAction type="file" filePath="${file.path}">
+      `<heroAction type="file" filePath="${file.path}">
 ${file.content}
-</boltAction>`,
+</heroAction>`,
   )
   .join('\n')}
-</boltArtifact>
+</heroArtifact>
 `;
   let userMessage = ``;
-  const templatePromptFile = files.filter((x) => x.path.startsWith('.bolt')).find((x) => x.name == 'prompt');
+  const templatePromptFile = files.filter((x) => x.path.startsWith('.hero')).find((x) => x.name == 'prompt');
 
   if (templatePromptFile) {
     userMessage = `

@@ -68,28 +68,28 @@ export function HistoryItem({
   return (
     <div
       className={classNames(
-        'group rounded-lg text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50/80 dark:hover:bg-gray-800/30 overflow-hidden flex justify-between items-center px-3 py-2 transition-colors',
-        { 'text-gray-900 dark:text-white bg-gray-50/80 dark:bg-gray-800/30': isActiveChat },
+        'group rounded-xl text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50/80 dark:hover:bg-gray-800/30 overflow-hidden flex justify-between items-center px-4 py-3 transition-all duration-300 hover:scale-[1.02] hover:shadow-bolt-elements-shadow-soft',
+        { 'text-gray-900 dark:text-white bg-gradient-to-r from-accent-50/80 dark:from-accent-900/20 to-white/80 dark:to-gray-800/30 border border-accent-200/50 dark:border-accent-700/30': isActiveChat },
         { 'cursor-pointer': selectionMode },
       )}
       onClick={selectionMode ? handleItemClick : undefined}
     >
       {selectionMode && (
-        <div className="flex items-center mr-2" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center mr-3" onClick={(e) => e.stopPropagation()}>
           <Checkbox
             id={`select-${item.id}`}
             checked={isSelected}
             onCheckedChange={handleCheckboxChange}
-            className="h-4 w-4"
+            className="h-4 w-4 text-accent-600"
           />
         </div>
       )}
 
       {editing ? (
-        <form onSubmit={handleSubmit} className="flex-1 flex items-center gap-2">
+        <form onSubmit={handleSubmit} className="flex-1 flex items-center gap-3">
           <input
             type="text"
-            className="flex-1 bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-md px-3 py-1.5 text-sm border border-gray-200 dark:border-gray-800 focus:outline-none focus:ring-1 focus:ring-purple-500/50"
+            className="flex-1 bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-lg px-3 py-2 text-sm border border-gray-200 dark:border-gray-800 focus:outline-none focus:ring-2 focus:ring-accent-500/50 focus:border-accent-500/50 transition-all duration-200"
             autoFocus
             value={currentDescription}
             onChange={handleChange}
@@ -98,90 +98,83 @@ export function HistoryItem({
           />
           <button
             type="submit"
-            className="i-ph:check h-4 w-4 text-gray-500 hover:text-purple-500 transition-colors"
-            onMouseDown={handleSubmit}
-          />
+            className="px-3 py-1.5 bg-accent-500 hover:bg-accent-600 text-white rounded-lg text-sm font-medium transition-colors duration-200 hover:scale-105"
+          >
+            Save
+          </button>
         </form>
       ) : (
         <a
           href={`/chat/${item.urlId}`}
-          className="flex w-full relative truncate block"
-          onClick={selectionMode ? handleItemClick : undefined}
+          className={classNames(
+            'flex-1 flex items-center gap-3 min-w-0',
+            { 'cursor-pointer': !selectionMode },
+          )}
         >
-          <WithTooltip tooltip={currentDescription}>
-            <span className="truncate pr-24">{currentDescription}</span>
-          </WithTooltip>
-          <div
-            className={classNames(
-              'absolute right-0 top-0 bottom-0 flex items-center bg-transparent px-2 transition-colors',
-            )}
-          >
-            <div className="flex items-center gap-2.5 text-gray-400 dark:text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity">
-              <ChatActionButton
-                toolTipContent="Export"
-                icon="i-ph:download-simple h-4 w-4"
-                onClick={(event) => {
-                  event.preventDefault();
-                  exportChat(item.id);
-                }}
-              />
-              {onDuplicate && (
-                <ChatActionButton
-                  toolTipContent="Duplicate"
-                  icon="i-ph:copy h-4 w-4"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    onDuplicate?.(item.id);
-                  }}
-                />
-              )}
-              <ChatActionButton
-                toolTipContent="Rename"
-                icon="i-ph:pencil-fill h-4 w-4"
-                onClick={(event) => {
-                  event.preventDefault();
-                  toggleEditMode();
-                }}
-              />
-              <ChatActionButton
-                toolTipContent="Delete"
-                icon="i-ph:trash h-4 w-4"
-                className="hover:text-red-500 dark:hover:text-red-400"
-                onClick={handleDeleteClick}
-              />
+          {/* Enhanced Chat Icon */}
+          <div className={classNames(
+            'w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-300',
+            isActiveChat 
+              ? 'bg-accent-500 text-white shadow-bolt-elements-shadow-soft' 
+              : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 group-hover:bg-accent-100 dark:group-hover:bg-accent-900/20 group-hover:text-accent-600 dark:group-hover:text-accent-400'
+          )}>
+            <span className="i-ph:chat-circle-text h-4 w-4" />
+          </div>
+          
+          {/* Enhanced Text Content */}
+          <div className="flex-1 min-w-0">
+            <div className="font-medium truncate group-hover:text-accent-700 dark:group-hover:text-accent-300 transition-colors duration-200">
+              {item.description}
             </div>
+            {isActiveChat && (
+              <div className="text-xs text-accent-600 dark:text-accent-400 font-medium mt-1">
+                Active now
+              </div>
+            )}
           </div>
         </a>
+      )}
+
+      {/* Enhanced Action Buttons */}
+      {!editing && (
+        <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
+          <WithTooltip content="Edit description">
+            <button
+              onClick={toggleEditMode}
+              className="p-2 text-gray-500 hover:text-accent-600 dark:text-gray-400 dark:hover:text-accent-400 hover:bg-accent-50 dark:hover:bg-accent-900/20 rounded-lg transition-all duration-200 hover:scale-110"
+            >
+              <span className="i-ph:pencil-simple h-4 w-4" />
+            </button>
+          </WithTooltip>
+          
+          <WithTooltip content="Duplicate chat">
+            <button
+              onClick={() => onDuplicate?.(item.id)}
+              className="p-2 text-gray-500 hover:text-accent-600 dark:text-gray-400 dark:hover:text-accent-400 hover:bg-accent-50 dark:hover:bg-accent-900/20 rounded-lg transition-all duration-200 hover:scale-110"
+            >
+              <span className="i-ph:copy h-4 w-4" />
+            </button>
+          </WithTooltip>
+          
+          <WithTooltip content="Export chat">
+            <button
+              onClick={() => exportChat(item.id)}
+              className="p-2 text-gray-500 hover:text-accent-600 dark:text-gray-400 dark:hover:text-accent-400 hover:bg-accent-50 dark:hover:bg-accent-900/20 rounded-lg transition-all duration-200 hover:scale-110"
+            >
+              <span className="i-ph:download h-4 w-4" />
+            </button>
+          </WithTooltip>
+          
+          <WithTooltip content="Delete chat">
+            <button
+              onClick={handleDeleteClick}
+              className="p-2 text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all duration-200 hover:scale-110"
+            >
+              <span className="i-ph:trash h-4 w-4" />
+            </button>
+          </WithTooltip>
+        </div>
       )}
     </div>
   );
 }
-
-const ChatActionButton = forwardRef(
-  (
-    {
-      toolTipContent,
-      icon,
-      className,
-      onClick,
-    }: {
-      toolTipContent: string;
-      icon: string;
-      className?: string;
-      onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-      btnTitle?: string;
-    },
-    ref: ForwardedRef<HTMLButtonElement>,
-  ) => {
-    return (
-      <WithTooltip tooltip={toolTipContent} position="bottom" sideOffset={4}>
-        <button
-          ref={ref}
-          type="button"
-          className={`text-gray-400 dark:text-gray-500 hover:text-purple-500 dark:hover:text-purple-400 transition-colors ${icon} ${className ? className : ''}`}
-          onClick={onClick}
-        />
-      </WithTooltip>
-    );
-  },
-);
