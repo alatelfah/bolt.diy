@@ -479,13 +479,15 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                   <div className="flex flex-col gap-6">
                     {!chatStarted && (
                       <div className="animate-fade-in-up stagger-3">
-                        <ExamplePrompts((event, messageInput) => {
-                          if (isStreaming) {
-                            handleStop?.();
-                            return;
-                          }
-                          handleSendMessage?.(event, messageInput);
-                        })}
+                        <ExamplePrompts
+                          sendMessage={(event, messageInput) => {
+                            if (isStreaming) {
+                              handleStop?.();
+                              return;
+                            }
+                            handleSendMessage?.(event, messageInput);
+                          }}
+                        />
                       </div>
                     )}
                     
