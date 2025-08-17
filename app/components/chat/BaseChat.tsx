@@ -354,7 +354,7 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                         <span className="i-ph:bolt h-12 w-12 text-white" />
                       </div>
                       <h1 className="text-4xl font-bold text-bolt-elements-textPrimary mb-4 bg-gradient-to-r from-accent-600 to-accent-800 bg-clip-text text-transparent">
-                        Welcome to Bolt
+                        Welcome to Hero Builder
                       </h1>
                       <p className="text-xl text-bolt-elements-textSecondary max-w-2xl mx-auto leading-relaxed">
                         Your AI-powered development companion. Start building, coding, and creating with intelligent assistance.

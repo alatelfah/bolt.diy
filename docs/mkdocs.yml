@@ -1,55 +1,44 @@
-site_name: bolt.diy Docs
-site_dir: ../site
-theme:
-  name: material
-  palette:
-    - scheme: default
-      toggle:
-        icon: material/toggle-switch-off-outline
-        name: Switch to dark mode
-    - scheme: slate
-      toggle:
-        icon: material/toggle-switch
-        name: Switch to light mode
-  features:
-    - navigation.tabs
-    - navigation.sections
-    - toc.follow
-    - toc.integrate
-    - navigation.top
-    - search.suggest
-    - search.highlight
-    - content.tabs.link
-    - content.code.annotation
-    - content.code.copy
-    # - navigation.instant
-    # - navigation.tracking
-    # - navigation.tabs.sticky
-    # - navigation.expand
-    # - content.code.annotate
-  icon:
-    repo: fontawesome/brands/github
-  # logo: assets/logo.png
-  # favicon: assets/logo.png
-repo_name: bolt.diy
-repo_url: https://github.com/stackblitz-labs/bolt.diy
+site_name: Hero Builder Docs
+site_description: AI-powered development companion
+site_author: StackBlitz Labs
+site_url: https://hero-builder.com
+
+# Repository
+repo_name: hero-builder
+repo_url: https://github.com/stackblitz-labs/hero-builder
+
+# Social
+social:
+  - icon: fontawesome/brands/github
+    link: https://github.com/stackblitz-labs/hero-builder
+    name: hero-builder
+  - icon: fontawesome/brands/discord
+    link: https://discord.gg/hero-builder
+    name: Hero Builder Discourse
+  - icon: fontawesome/brands/x-twitter
+    link: https://x.com/hero-builder
+    name: Hero Builder on X
+  - icon: fontawesome/brands/bluesky
+    link: https://bsky.app/profile/hero-builder
+    name: Hero Builder on Bluesky
+
 edit_uri: ''
 
 extra:
   generator: false
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/stackblitz-labs/bolt.diy
-      name: bolt.diy
+      link: https://github.com/stackblitz-labs/hero-builder
+      name: hero-builder
     - icon: fontawesome/brands/discourse
       link: https://thinktank.ottomator.ai/
-      name: bolt.diy Discourse
+      name: Hero Builder Discourse
     - icon: fontawesome/brands/x-twitter
-      link: https://x.com/bolt_diy
-      name: bolt.diy on X
+      link: https://x.com/hero-builder
+      name: Hero Builder on X
     - icon: fontawesome/brands/bluesky
-      link: https://bsky.app/profile/bolt.diy
-      name: bolt.diy on Bluesky
+      link: https://bsky.app/profile/hero-builder
+      name: Hero Builder on Bluesky
 
 markdown_extensions:
   - pymdownx.highlight:

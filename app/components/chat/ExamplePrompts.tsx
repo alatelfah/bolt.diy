@@ -1,7 +1,7 @@
 import React from 'react';
 
 const EXAMPLE_PROMPTS = [
-  { text: 'Create a mobile app about bolt.diy', icon: 'i-ph:mobile' },
+  { text: 'Create a mobile app about Hero Builder', icon: 'i-ph:mobile' },
   { text: 'Build a todo app in React using Tailwind', icon: 'i-ph:check-square' },
   { text: 'Build a simple blog using Astro', icon: 'i-ph:newspaper' },
   { text: 'Create a cookie consent form using Material UI', icon: 'i-ph:cookie' },
