@@ -69,9 +69,9 @@ export class ImportExportService {
         // Core settings
         core: {
           // User profile and main settings
-          bolt_user_profile: this._safeGetItem('bolt_user_profile'),
-          bolt_settings: this._safeGetItem('bolt_settings'),
-          bolt_profile: this._safeGetItem('bolt_profile'),
+          hero_user_profile: this._safeGetItem('hero_user_profile'),
+          hero_settings: this._safeGetItem('hero_settings'),
+          hero_profile: this._safeGetItem('hero_profile'),
           theme: this._safeGetItem('theme'),
         },
 

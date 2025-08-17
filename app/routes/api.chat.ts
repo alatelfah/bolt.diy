@@ -334,7 +334,7 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
 
           if (typeof chunk === 'string') {
             if (chunk.startsWith('g') && !lastChunk.startsWith('g')) {
-              controller.enqueue(encoder.encode(`0: "<div class=\\"__boltThought__\\">"\n`));
+              controller.enqueue(encoder.encode(`0: "<div class=\\"__heroThought__\\">"\n`));
             }
 
             if (lastChunk.startsWith('g') && !chunk.startsWith('g')) {

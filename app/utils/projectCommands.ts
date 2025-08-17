@@ -72,12 +72,12 @@ export function createCommandsMessage(commands: ProjectCommands): Message | null
 
   if (commands.setupCommand) {
     commandString += `
-<boltAction type="shell">${commands.setupCommand}</boltAction>`;
+<heroAction type="shell">${commands.setupCommand}</heroAction>`;
   }
 
   if (commands.startCommand) {
     commandString += `
-<boltAction type="start">${commands.startCommand}</boltAction>
+<heroAction type="start">${commands.startCommand}</heroAction>
 `;
   }
 
@@ -85,16 +85,16 @@ export function createCommandsMessage(commands: ProjectCommands): Message | null
     role: 'assistant',
     content: `
 ${commands.followupMessage ? `\n\n${commands.followupMessage}` : ''}
-<boltArtifact id="project-setup" title="Project Setup">
+<heroArtifact id="project-setup" title="Project Setup">
 ${commandString}
-</boltArtifact>`,
+</heroArtifact>`,
     id: generateId(),
     createdAt: new Date(),
   };
 }
 
-export function escapeBoltArtifactTags(input: string) {
-  // Regular expression to match boltArtifact tags and their content
+export function escapeHeroArtifactTags(input: string) {
+  // Regular expression to match heroArtifact tags and their content
   const regex = /(<boltArtifact[^>]*>)([\s\S]*?)(<\/boltArtifact>)/g;
 
   return input.replace(regex, (match, openTag, content, closeTag) => {
@@ -109,8 +109,8 @@ export function escapeBoltArtifactTags(input: string) {
   });
 }
 
-export function escapeBoltAActionTags(input: string) {
-  // Regular expression to match boltArtifact tags and their content
+export function escapeHeroAActionTags(input: string) {
+  // Regular expression to match heroAction tags and their content
   const regex = /(<boltAction[^>]*>)([\s\S]*?)(<\/boltAction>)/g;
 
   return input.replace(regex, (match, openTag, content, closeTag) => {
@@ -125,8 +125,8 @@ export function escapeBoltAActionTags(input: string) {
   });
 }
 
-export function escapeBoltTags(input: string) {
-  return escapeBoltArtifactTags(escapeBoltAActionTags(input));
+export function escapeHeroTags(input: string) {
+  return escapeHeroArtifactTags(escapeHeroAActionTags(input));
 }
 
 // We have this seperate function to simplify the restore snapshot process in to one single artifact.
@@ -140,12 +140,12 @@ export function createCommandActionsString(commands: ProjectCommands): string {
 
   if (commands.setupCommand) {
     commandString += `
-<boltAction type="shell">${commands.setupCommand}</boltAction>`;
+<heroAction type="shell">${commands.setupCommand}</heroAction>`;
   }
 
   if (commands.startCommand) {
     commandString += `
-<boltAction type="start">${commands.startCommand}</boltAction>
+<heroAction type="start">${commands.startCommand}</heroAction>
 `;
   }
 
