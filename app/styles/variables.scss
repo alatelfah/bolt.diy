@@ -82,6 +82,17 @@
   --bolt-elements-cta-background: theme('colors.gray.100');
   --bolt-elements-cta-text: theme('colors.gray.950');
 
+  /* Enhanced Modern Colors */
+  --bolt-elements-gradient-primary: linear-gradient(135deg, theme('colors.accent.500'), theme('colors.accent.600'));
+  --bolt-elements-gradient-secondary: linear-gradient(135deg, theme('colors.gray.100'), theme('colors.gray.200'));
+  --bolt-elements-shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --bolt-elements-shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --bolt-elements-shadow-large: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --bolt-elements-border-radius-sm: 0.375rem;
+  --bolt-elements-border-radius-md: 0.5rem;
+  --bolt-elements-border-radius-lg: 0.75rem;
+  --bolt-elements-border-radius-xl: 1rem;
+
   /* Terminal Colors */
   --bolt-terminal-background: var(--bolt-elements-terminals-background);
   --bolt-terminal-foreground: #333333;
@@ -102,7 +113,7 @@
   --bolt-terminal-brightMagenta: #bc05bc;
   --bolt-terminal-brightCyan: #0598bc;
   --bolt-terminal-brightWhite: #a5a5a5;
-  --modern-scrollbar-thumb-background: rgba(100, 100, 100, 0.3); // Example light theme color
+  --modern-scrollbar-thumb-background: rgba(100, 100, 100, 0.3);
   --modern-scrollbar-thumb-backgroundHover: rgba(74, 74, 74, 0.8);
 }
 
@@ -190,6 +201,17 @@
   --bolt-elements-cta-background: theme('colors.alpha.white.10');
   --bolt-elements-cta-text: theme('colors.white');
 
+  /* Enhanced Modern Colors for Dark Theme */
+  --bolt-elements-gradient-primary: linear-gradient(135deg, theme('colors.accent.400'), theme('colors.accent.500'));
+  --bolt-elements-gradient-secondary: linear-gradient(135deg, theme('colors.gray.800'), theme('colors.gray.700'));
+  --bolt-elements-shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --bolt-elements-shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  --bolt-elements-shadow-large: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  --bolt-elements-border-radius-sm: 0.375rem;
+  --bolt-elements-border-radius-md: 0.5rem;
+  --bolt-elements-border-radius-lg: 0.75rem;
+  --bolt-elements-border-radius-xl: 1rem;
+
   /* Terminal Colors */
   --bolt-terminal-background: var(--bolt-elements-terminals-background);
   --bolt-terminal-foreground: #eff0eb;
@@ -210,7 +232,7 @@
   --bolt-terminal-brightMagenta: #ff6ac1;
   --bolt-terminal-brightCyan: #9aedfe;
   --bolt-terminal-brightWhite: #f1f1f0;
-  --modern-scrollbar-thumb-background: rgba(100, 100, 100, 0.3); // Example dark theme color (adjust as needed)
+  --modern-scrollbar-thumb-background: rgba(100, 100, 100, 0.3);
   --modern-scrollbar-thumb-backgroundHover: rgba(10, 10, 10, 0.8);
 }
 
@@ -220,12 +242,44 @@
  * Hierarchy: Element Token -> (Element Token | Color Tokens) -> Primitives
  */
 :root {
-  --header-height: 54px;
+  --header-height: 64px;
   --chat-max-width: 33rem;
   --chat-min-width: 533px;
   --workbench-width: min(calc(100% - var(--chat-min-width)), 2536px);
   --workbench-inner-width: var(--workbench-width);
   --workbench-left: calc(100% - var(--workbench-width));
+
+  /* Enhanced Spacing System */
+  --bolt-spacing-xs: 0.25rem;
+  --bolt-spacing-sm: 0.5rem;
+  --bolt-spacing-md: 1rem;
+  --bolt-spacing-lg: 1.5rem;
+  --bolt-spacing-xl: 2rem;
+  --bolt-spacing-2xl: 3rem;
+  --bolt-spacing-3xl: 4rem;
+
+  /* Enhanced Typography Scale */
+  --bolt-font-size-xs: 0.75rem;
+  --bolt-font-size-sm: 0.875rem;
+  --bolt-font-size-base: 1rem;
+  --bolt-font-size-lg: 1.125rem;
+  --bolt-font-size-xl: 1.25rem;
+  --bolt-font-size-2xl: 1.5rem;
+  --bolt-font-size-3xl: 1.875rem;
+  --bolt-font-size-4xl: 2.25rem;
+
+  /* Enhanced Line Heights */
+  --bolt-line-height-tight: 1.25;
+  --bolt-line-height-snug: 1.375;
+  --bolt-line-height-normal: 1.5;
+  --bolt-line-height-relaxed: 1.625;
+  --bolt-line-height-loose: 2;
+
+  /* Enhanced Transitions */
+  --bolt-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --bolt-transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --bolt-transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  --bolt-transition-bounce: 400ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
   /* Toasts */
   --toastify-color-progress-success: var(--bolt-elements-icon-success);

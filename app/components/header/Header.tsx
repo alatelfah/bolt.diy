@@ -10,33 +10,56 @@ export function Header() {
 
   return (
     <header
-      className={classNames('flex items-center px-4 border-b h-[var(--header-height)]', {
-        'border-transparent': !chat.started,
-        'border-bolt-elements-borderColor': chat.started,
-      })}
+      className={classNames(
+        'flex items-center px-6 border-b h-[var(--header-height)] backdrop-blur-sm bg-bolt-elements-bg-depth-1/80 transition-all duration-300',
+        {
+          'border-transparent shadow-none': !chat.started,
+          'border-bolt-elements-borderColor shadow-bolt-elements-shadow-soft': chat.started,
+        }
+      )}
     >
-      <div className="flex items-center gap-2 z-logo text-bolt-elements-textPrimary cursor-pointer">
-        <div className="i-ph:sidebar-simple-duotone text-xl" />
-        <a href="/" className="text-2xl font-semibold text-accent flex items-center">
-          {/* <span className="i-bolt:logo-text?mask w-[46px] inline-block" /> */}
-          <img src="/logo-light-styled.png" alt="logo" className="w-[90px] inline-block dark:hidden" />
-          <img src="/logo-dark-styled.png" alt="logo" className="w-[90px] inline-block hidden dark:block" />
+      {/* Enhanced Logo Section */}
+      <div className="flex items-center gap-3 z-logo text-bolt-elements-textPrimary cursor-pointer group">
+        <div className="relative">
+          <div className="i-ph:sidebar-simple-duotone text-xl text-accent transition-all duration-300 group-hover:scale-110 group-hover:text-accent-600" />
+          <div className="absolute inset-0 bg-accent/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        </div>
+        <a 
+          href="/" 
+          className="relative text-2xl font-bold text-accent flex items-center transition-all duration-300 hover:scale-105"
+        >
+          <img src="/logo-light-styled.png" alt="logo" className="w-[90px] inline-block dark:hidden drop-shadow-sm" />
+          <img src="/logo-dark-styled.png" alt="logo" className="w-[90px] inline-block hidden dark:block drop-shadow-sm" />
+          {/* Subtle glow effect */}
+          <div className="absolute inset-0 bg-accent/20 rounded-lg blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </a>
       </div>
-      {chat.started && ( // Display ChatDescription and HeaderActionButtons only when the chat has started.
+
+      {/* Enhanced Chat Description and Actions */}
+      {chat.started && (
         <>
-          <span className="flex-1 px-4 truncate text-center text-bolt-elements-textPrimary">
-            <ClientOnly>{() => <ChatDescription />}</ClientOnly>
+          <span className="flex-1 px-6 truncate text-center text-bolt-elements-textPrimary">
+            <ClientOnly>
+              {() => (
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-bolt-elements-bg-depth-2/50 backdrop-blur-sm border border-bolt-elements-borderColor/50">
+                  <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
+                  <ChatDescription />
+                </div>
+              )}
+            </ClientOnly>
           </span>
           <ClientOnly>
             {() => (
-              <div className="">
+              <div className="flex items-center gap-2">
                 <HeaderActionButtons chatStarted={chat.started} />
               </div>
             )}
           </ClientOnly>
         </>
       )}
+
+      {/* Enhanced Visual Elements */}
+      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-bolt-elements-borderColor to-transparent opacity-50" />
     </header>
   );
 }
